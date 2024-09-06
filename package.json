@@ -1,0 +1,29 @@
+{
+  "name": "fresh-programming-start",
+  "version": "1.0.0",
+  "description": "Common Coding for all fresh start",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx nodemon source(src)/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sachin27182003/Common-Express-Code.git"
+  },
+  "keywords": [
+    "Common",
+    "Express",
+    "Code"
+  ],
+  "author": "Sachin2708",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sachin27182003/Common-Express-Code/issues"
+  },
+  "homepage": "https://github.com/Sachin27182003/Common-Express-Code#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  }
+}
