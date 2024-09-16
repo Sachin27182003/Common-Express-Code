@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
         require: [true, "Password can't be empty"],
         minlength: [8, "Password should be more than 8 character"]
     } 
-},{timestamps: true, versionKey: true})
+},{timestamps: true, versionKey: false})
 
 const user = mongoose.model("User", userSchema);
 
