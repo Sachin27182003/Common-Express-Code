@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
        maxlength: [20, "First name shouldn't be exceed by 20 character"]
     },
 
-    secondtName:{
+    lastName:{
         type: String,
         minlength: [5, "First name shouldn'be less than 5 character"],
         lowercase: true,
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         trim: true,
         unique: [true, "Email already exist"],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address'],
         required: [true, "Email address can not be empty"], 
     },
     password:{
