@@ -1,21 +1,19 @@
-const {registerUser} = require('../Services/userService');
+const {validateLogin} = require('../Services/authService');
 
+async function login(req, res){
 
-async function createUser(req, res){
-    console.log("From userController");
-    console.log(req.body);
-
-   
-
+    
     try {
-        const response = await registerUser(req.body);
-        return res.status(201).json({
-            message: "User Registered successfully",
+        const loginPayload = req.body;
+
+        const response = await validateLogin(loginPayload);
+        
+        return res.status(200).json({
             success: true,
+            message: "logged in successfully",
             data: response,
             error: {}
         })
-        
     } catch (error) {
         let errorMessage = error.message;
         if (error.errors) {
@@ -34,8 +32,6 @@ async function createUser(req, res){
     }
 }
 
-
-
 module.exports = {
-    createUser
+    login
 }

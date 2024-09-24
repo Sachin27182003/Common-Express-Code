@@ -5,12 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "npx nodemon source(src)/index.js"
-
-    
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sachin27182003/Co"
+    "url": "https://github.com/Sachin27182003/Common-Express-Code.git"
   },
   "keywords": [
     "Common",
@@ -24,8 +22,10 @@
   },
   "homepage": "https://github.com/Sachin27182003/Common-Express-Code#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.1",
     "nodemon": "^3.1.4"
   }

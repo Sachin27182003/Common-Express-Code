@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     firstName:{
@@ -40,6 +41,12 @@ const userSchema = new mongoose.Schema({
         minlength: [8, "Password should be more than 8 character"]
     } 
 },{timestamps: true, versionKey: false})
+
+userSchema.pre('save', async function (){
+    const hashedPassword = await bcrypt.hash(this.password, 10);
+    this.password = hashedPassword;
+    
+})
 
 const user = mongoose.model("User", userSchema);
 

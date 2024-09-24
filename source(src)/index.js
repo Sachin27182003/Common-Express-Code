@@ -8,13 +8,12 @@ const bodyParser = require('body-parser');
 
 const serverConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
-const userRouter = require('./Routes/userRoute');
-const cartRouter = require('./Routes/cartRoute');
+// const userRouter = require('./Routes/userRoute');
+const {cartRouter, userRouter, authRouter } = require('./Routes/Router');
 // const user = require('./Schema/userSchema');
 
 
 const app = express();
-
 
 
 app.use(bodyParser.json());
@@ -31,6 +30,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //Routing middleware
 app.use('/users', userRouter);
 app.use('/carts', cartRouter);
+app.use('/login', authRouter);
 
 
 app.post('/ping', (req, res)=>{
@@ -42,22 +42,7 @@ app.post('/ping', (req, res)=>{
 app.listen(serverConfig.PORT, async () => {
     await connectDB();
     console.log(`server started on port ${serverConfig.PORT}...!`);
-    // console.log(process.env.PORT).....
-
-    // try {
-    //     const userData = await user.create({
-    //         firstName: "Rahul",
-    //         secondtName: "Kumar",
-    //         mobileNumber: "5834767897",
-    //         email: "6gyfrd9643H@example.com",
-    //         password: "Rahul@123654"
-    //     })
-
-    //     console.log("created New User ");
-    //     console.log(userData);
-    // } catch (error) {
-    //     console.log(error.message)
-    // }
+    
     
 
     
@@ -73,3 +58,6 @@ app.listen(serverConfig.PORT, async () => {
 
 //  mongodb+srv://sachinsachinkumar27082003:pK9yeItSxme9qxef@cluster0.18vnj
 /// .mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+// Dependencies
+// npm install express nodemon dotenv mongoose bcrypt jsonwebtoken

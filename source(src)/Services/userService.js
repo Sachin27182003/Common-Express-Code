@@ -1,17 +1,13 @@
-class userService {
+
+const {findUser, createUser} = require('../Repositories/userRepositories')
+
 
     
-    constructor(userRepository){
-        console.log("from userService")
-        this.userRepository = userRepository;
-    }
-
-    
-    async registerUser(userDetails){
+    async function registerUser(userDetails){
     // it will create a brand new user in database;
     
     //we need to check if the user with this email and mobile number already exists or not
-    const user = await this.userRepository.findUser({
+    const user = await findUser({
         $or: [
         {email: userDetails.email},
         {mobileNumber: userDetails.mobileNumber}
@@ -20,11 +16,11 @@ class userService {
     
     //if user not found 
     if(user){
-        throw { reason: "User already Found ", StatusCode: 400}
+        throw { message: "User already exist ", statusCode: 400}
     }
 
     // if not then create a new user in the database;
-    const newUser = await this.userRepository.createUser({
+    const newUser = await createUser({
 
         firstName : userDetails.firstName,
         lastName: userDetails.lastName,
@@ -34,7 +30,7 @@ class userService {
     })
 
     if(!newUser){
-        throw { reason : "Something went wrong, Unable to create user", StatusCode: 500}
+        throw { message : "Something went wrong, Unable to create user", statusCode: 500}
     }
 
     //return the details of new user
@@ -42,6 +38,7 @@ class userService {
 
 
     }
-}
 
-module.exports = userService;
+module.exports = {
+    registerUser
+}
