@@ -5,16 +5,18 @@ const express = require('express');
 
 // helps to read json file from api
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const serverConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
 // const userRouter = require('./Routes/userRoute');
 const {cartRouter, userRouter, authRouter } = require('./Routes/Router');
+const isLoggedIn = require('./Validation/authValidator');
 // const user = require('./Schema/userSchema');
 
 
 const app = express();
-
+app.use(cookieParser());
 
 app.use(bodyParser.json());
 // helps to read json file coming from servers
@@ -33,8 +35,9 @@ app.use('/carts', cartRouter);
 app.use('/login', authRouter);
 
 
-app.post('/ping', (req, res)=>{
+app.get('/ping', isLoggedIn ,(req, res)=>{
     console.log(req.body);
+    console.log(req.cookies);
     return res.json({message: "pong"});
 })
 
@@ -60,4 +63,4 @@ app.listen(serverConfig.PORT, async () => {
 /// .mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 // Dependencies
-// npm install express nodemon dotenv mongoose bcrypt jsonwebtoken
+// npm install express nodemon dotenv mongoose bcrypt jsonwebtoken cookie-parser
