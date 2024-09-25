@@ -17,7 +17,6 @@ async function validateLogin(authDetails){
 
      //If user found we need to compare plain password to hashed password
      const isPasswordValidated = await bcrypt.compare(plainPassword, user.password);
-     console.log(isPasswordValidated);
 
      if(!isPasswordValidated){
         throw { message: "Invalid Password, Please Try again!!", statusCode: 401}

@@ -1,8 +1,7 @@
 const {registerUser} = require('../Services/userService');
 
 
-async function createUser(req, res){
-    console.log("From userController");
+async function createUser(req, res){}
     console.log(req.body);
 
    
