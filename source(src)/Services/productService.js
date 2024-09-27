@@ -4,10 +4,12 @@ const {addProduct} = require('../Repositories/productRepositories')
 
 async function registerProduct(userDetails, imageDetails){
 
+    
+
     const product = await addProduct({
         name: userDetails.name,
         description: userDetails.description,
-        productImage: imageDetails.url,
+        productImage: imageDetails.url || imageDetails,
         price: userDetails.price,
         category: userDetails.category,
         inStock: userDetails.inStock

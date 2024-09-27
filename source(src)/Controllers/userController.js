@@ -25,7 +25,7 @@ async function createUser(req, res){
         return res.status(error.statusCode || 500).json({
             success: false,
             data: {},
-            error: errorMessage,
+            error: error.message,
             statusCode: error.statusCode
         })
     }

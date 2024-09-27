@@ -8,22 +8,20 @@ async function createProduct(req, res){
 
     // console.log(req.file);
 
-    
+    let response;
 
     try {
 
-        if (!req.file) {
-            return res.status(400).json({
-                message: "Please attach a product image",
-                success: false,
-                error: {}
-            });
-        }
-        const result = await cloudinary.uploader.upload(req.file.path);
-        console.log("Result from cloudinary", result)
-        await fs.unlink(req.file.path);
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            console.log("Result from cloudinary", result)
+            await fs.unlink(req.file.path);
 
-        const response = await registerProduct(req.body, result);
+            response = await registerProduct(req.body, result);
+        } else {
+            
+            response = await registerProduct(req.body, "Image not attached");
+        }
 
         return res.status(201).json({
             message: "Product added successfully",
