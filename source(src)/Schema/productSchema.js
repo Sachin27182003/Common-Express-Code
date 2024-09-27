@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema({
     },
     inStock:{
         type: Boolean,
-        required: [true, "inStock status is require"]
+        required: [true, "inStock status is require"],
     }
 
 },{timestamps: true}, {versionKey: false})
