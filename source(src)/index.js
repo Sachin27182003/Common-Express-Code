@@ -10,11 +10,9 @@ const cookieParser = require('cookie-parser');
 const serverConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
 // const userRouter = require('./Routes/userRoute');
-const {cartRouter, userRouter, authRouter,productRouter } = require('./Routes/Router');
+const { cartRouter, userRouter, authRouter, productRouter, getProductRouter, deleteProductRouter } = require('./Routes/Router');
 const isLoggedIn = require('./Validation/authValidator');
-const { uploader } = require('./Middleware/multerMiddleware');
-const cloudinary = require('./config/cloudinaryConfig');
-const fs = require('fs/promises');
+
 // const user = require('./Schema/userSchema');
 
 
@@ -37,21 +35,9 @@ app.use('/users', userRouter);
 app.use('/carts', cartRouter);
 app.use('/login', authRouter);
 app.use('/add', productRouter);
+app.use('/product', getProductRouter);
+app.use('/product', deleteProductRouter);
 
-// app.post('/photo', uploader.single('files'), async (req, res)=>{
-
-//     console.log(req.file);
-//     try {
-//         const result = await cloudinary.uploader.upload(req.file.path);
-//         console.log("Result from cloudinary", result)
-//         console.log(req.file.path);
-//         await fs.unlink(req.file.path);
-//     } catch (error) {
-//         console.log(error.message);
-//         return res.json({message: error.message})
-//     }
-//     return res.json({message: "okay!!"});
-// })
 
 
 app.get('/ping', isLoggedIn ,(req, res)=>{

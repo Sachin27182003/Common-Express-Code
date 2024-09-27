@@ -1,4 +1,4 @@
-const {registerProduct } = require('../Services/productService')
+const {registerProduct, findProductById, findAndDeleteProductByID} = require('../Services/productService')
 
 const cloudinary = require('../config/cloudinaryConfig');
 const fs = require('fs/promises');
@@ -19,7 +19,7 @@ async function createProduct(req, res){
 
             response = await registerProduct(req.body, result);
         } else {
-            
+
             response = await registerProduct(req.body, "Image not attached");
         }
 
@@ -36,12 +36,48 @@ async function createProduct(req, res){
         return res.json({message: error.message})
     }
 
+}
+
+async function getProduct(req, res){
 
 
+    console.log("From product controller")
+
+    try {
+        let response = await findProductById(req.params._id);
+        return res.status(201).json({
+            message: "Found the required product",
+            success: true,
+            data: response,
+            error: {}
+        })
+    } catch (error) {
+        console.log(error.message);
+        return res.json({message: error.message});
+    }
 
 
 }
 
+async function deleteProduct(req, res){
+
+    try {
+        let response = await findAndDeleteProductByID(req.params._id)
+        return res.status(201).json({
+            message: "Product deleted successfully",
+            success: true,
+            data: response,
+            error: {}
+
+        })
+    } catch (error) {
+        console.log(error.message);
+        return res.json({message: error.message});
+    }
+}
+
 module.exports = {
-    createProduct
+    createProduct,
+    getProduct,
+    deleteProduct
 }
