@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //Routing middleware
 app.use('/users', userRouter);
 app.use('/carts', cartRouter);
-app.use('/login', authRouter);
+app.use('/', authRouter);
 app.use('/add', productRouter);
 app.use('/product', getProductRouter);
 app.use('/product', deleteProductRouter);

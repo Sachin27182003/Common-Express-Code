@@ -23,13 +23,36 @@ async function createNewOrder(orderDetails){
 async function fetchOrders(userId){
 
     try {
-        const orders = await order.find(userId);
+        const orders = await order.find(userId).populate('items.product');
         return orders;
     } catch (error) {
         console.log(error.message);
     }
 }
+
+async function fetchOrderById(orderId){
+
+    try {
+        const data = await order.findById(orderId).populate('items.product');
+        return data;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+async function updateOrderById(orderId, status){
+
+    try {
+        const data = await order.findByIdAndUpdate(orderId, status, {new: true});
+        return data;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     createNewOrder,
-    fetchOrders
+    fetchOrders,
+    fetchOrderById,
+    updateOrderById
 }

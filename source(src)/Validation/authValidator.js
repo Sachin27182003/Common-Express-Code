@@ -60,7 +60,27 @@ async function isAdmin(req, res, next){
     }
 }
 
+async function isUser(req, res, next){
+
+    const loggedInUser = req.user;
+
+    if(loggedInUser.role === 'USER'){
+        next();
+    } else {
+        return res.status(401).json({
+            success: false,
+            data: {},
+            message: "You are not a USER",
+            error:{
+                statusCode: 401,
+                reason: "Unauthorized for this action" 
+            }
+        })
+    }
+}
+
 module.exports = {
     isLoggedIn,
-    isAdmin
+    isAdmin,
+    isUser
 }

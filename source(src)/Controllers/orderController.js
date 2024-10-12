@@ -1,4 +1,4 @@
-const { createOrder, getOrders } = require("../Services/orderService");
+const { createOrder, getOrders, getOrderById, modifyOrder } = require("../Services/orderService");
 
 async function newOrder(req, res){
 
@@ -71,8 +71,74 @@ async function myOrders(req, res){
         })
     }
 }
+
+async function myOrderById(req, res){
+
+    try {
+        const order = await getOrderById((req.params.id))
+
+        return res.status(200).json({
+            success: true,
+            message: "Successfully fetched the order",
+            error: {},
+            data: order
+        })
+    } catch (error) {
+        console.log(error);
+        if(error instanceof AppError){
+            return res.status(error.statusCode).json({
+                success: false,
+                message: error.message,
+                error: error,
+                data: {}
+            })
+        }
+
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong",
+            error: error.message,
+            data: {} 
+
+        })
+    }
+}
+
+async function updateOrder(req, res){
+
+    try {
+        const order = await modifyOrder(req.params.id, req.body.status)
+
+        return res.status(200).json({
+            success: true,
+            message: "Successfully fetched the order",
+            error: {},
+            data: order
+        })
+    } catch (error) {
+        console.log(error);
+        if(error instanceof AppError){
+            return res.status(error.statusCode).json({
+                success: false,
+                message: error.message,
+                error: error,
+                data: {}
+            })
+        }
+
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong",
+            error: error.message,
+            data: {} 
+
+        })
+    }
+}
     
 module.exports = {
     newOrder,
-    myOrders
+    myOrders,
+    myOrderById,
+    updateOrder
 }
