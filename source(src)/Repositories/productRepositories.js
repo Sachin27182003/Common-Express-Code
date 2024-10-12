@@ -1,4 +1,5 @@
 const { product } = require('../Schema/productSchema')
+const cloudinary = require('cloudinary').v2;
 
 async function addProduct(productDetails){
 
@@ -20,7 +21,14 @@ async function getProductById(productId){
     }
 }
 
-async function deleteProductById(productId){
+async function deleteProductById(productId, publicId){
+
+await cloudinary.api
+  .delete_resources([publicId], { type: 'upload', resource_type: 'image' })
+  .then(result => console.log(result))
+  .catch(err => console.error(err));
+
+
     try {
         const response = await product.findByIdAndDelete(productId)
         return response;

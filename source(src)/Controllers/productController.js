@@ -61,6 +61,8 @@ async function getProduct(req, res){
 
 async function deleteProduct(req, res){
 
+    console.log("product controller");
+
     try {
         let response = await findAndDeleteProductByID(req.params._id)
         return res.status(201).json({

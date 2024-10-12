@@ -21,8 +21,6 @@ async function getcart(userId){
 
 async function modifyCart(userId, shouldAdd = true, productId){
 
-    console.log("cart service");
-
     let cart = await getcart(userId);
     const product = await getProductById(productId);
 

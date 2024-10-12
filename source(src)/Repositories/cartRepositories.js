@@ -26,8 +26,6 @@ async function createCart(userId){
 
 async function getcartByUserId(userId){
 
-    console.log("Cart repositories");
-
     try {
         const cart = await Cart.findOne({
             user: userId

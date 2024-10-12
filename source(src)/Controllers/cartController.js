@@ -3,7 +3,6 @@ const { getcart, modifyCart, clearWholeCart } = require('../Services/cartService
 
 async function getCartById(req, res){
     try {
-        console.log("cart controller");
         const cart = await getcart(req.user.id);
 
         return res.status(200).json({

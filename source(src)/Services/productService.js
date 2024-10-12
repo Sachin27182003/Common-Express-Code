@@ -1,5 +1,6 @@
 const {addProduct, getProductById, deleteProductById} = require('../Repositories/productRepositories')
 const mongoose = require('mongoose');
+const NotFoundError = require('../utils/notFoundError');
 const { ObjectId } = mongoose.Types;
 
 
@@ -12,6 +13,7 @@ async function registerProduct(userDetails, imageDetails){
         name: userDetails.name,
         description: userDetails.description,
         productImage: imageDetails.url || imageDetails,
+        publicId: imageDetails.public_id,
         price: userDetails.price,
         category: userDetails.category,
         inStock: userDetails.inStock,
@@ -47,7 +49,14 @@ async function findProductById(productID){
 
 async function findAndDeleteProductByID(productID){
 
-    const response = await deleteProductById(productID);
+    console.log("product service");
+    const product = await getProductById(productID);
+
+    if(!product){
+        throw new NotFoundError("product Not found");
+    }
+
+    const response = await deleteProductById(productID, product.publicId);
     
    if(!response){
     throw {message: "Product Not Found To Delete", statusCode: 500};

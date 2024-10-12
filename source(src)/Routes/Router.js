@@ -24,7 +24,7 @@ userRouter.post('/', createUser);
 authRouter.post('/', login);
 productRouter.post('/products',isLoggedIn, isAdmin, uploader.single('files'), createProduct);
 getProductRouter.get('/:_id', getProduct);
-deleteProductRouter.delete('/:_id', deleteProduct);
+deleteProductRouter.delete('/delete/:_id', deleteProduct);
 
 
 
