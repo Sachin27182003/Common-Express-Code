@@ -21,8 +21,11 @@ async function getcart(userId){
 
 async function modifyCart(userId, shouldAdd = true, productId){
 
+    console.log("Cart service2");
     let cart = await getcart(userId);
+    console.log("Cart service3");
     const product = await getProductById(productId);
+    console.log("Cart service4");
 
     if(!product){
         throw new NotFoundError();
@@ -32,6 +35,7 @@ async function modifyCart(userId, shouldAdd = true, productId){
         throw new BadRequestError("Product is not available in stock");
     }
 
+    console.log(cart);
     let foundProduct = false;
     cart.items.forEach(item => {
         if(item.product._id.toString() === productId){

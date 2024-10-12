@@ -44,6 +44,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['ADMIN', 'USER'],
         default: 'USER'
+    },
+    address:{
+        type: String,
+        required: true,
+        trim: true,
+        minlength: [10, "Please Enter complete address"]
     } 
 },{timestamps: true, versionKey: false})
 

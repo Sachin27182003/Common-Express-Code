@@ -5,6 +5,7 @@ const {login} = require('../Controllers/authController');
 const { createProduct, getProduct, deleteProduct } = require('../Controllers/productController');
 const { uploader } = require('../Middleware/multerMiddleware');
 const { isLoggedIn, isAdmin } = require('../Validation/authValidator');
+const { newOrder, myOrders } = require('../Controllers/orderController');
 
 
 const cartRouter = express.Router();
@@ -13,6 +14,7 @@ const authRouter = express.Router();
 const productRouter = express.Router();
 const getProductRouter = express.Router();
 const deleteProductRouter = express.Router();
+const orderRouter = express.Router();
 
 
 // we have to initialize a router object to add routes in a new file /
@@ -25,7 +27,8 @@ authRouter.post('/', login);
 productRouter.post('/products',isLoggedIn, isAdmin, uploader.single('files'), createProduct);
 getProductRouter.get('/:_id', getProduct);
 deleteProductRouter.delete('/delete/:_id', deleteProduct);
-
+orderRouter.post('/', isLoggedIn, newOrder);
+orderRouter.get('/', isLoggedIn, myOrders);
 
 
 module.exports = {
@@ -34,7 +37,8 @@ module.exports = {
     authRouter,
     productRouter,
     getProductRouter,
-    deleteProductRouter
+    deleteProductRouter,
+    orderRouter
 }
 
 
