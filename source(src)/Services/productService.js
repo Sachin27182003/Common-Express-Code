@@ -14,7 +14,8 @@ async function registerProduct(userDetails, imageDetails){
         productImage: imageDetails.url || imageDetails,
         price: userDetails.price,
         category: userDetails.category,
-        inStock: userDetails.inStock
+        inStock: userDetails.inStock,
+        quantity: userDetails.quantity
 
     })
 
@@ -31,7 +32,7 @@ async function findProductById(productID){
 
     if (!ObjectId.isValid(productID)) {
         return res.status(400).send({ error: 'Invalid product ID' });
-      }
+    }
 
 
     console.log("after validation");

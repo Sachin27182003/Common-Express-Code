@@ -1,9 +1,10 @@
 
+const { createCart } = require('../Repositories/cartRepositories')
 const {findUser, createUser} = require('../Repositories/userRepositories')
 
 
     
-    async function registerUser(userDetails){
+async function registerUser(userDetails){
     // it will create a brand new user in database;
     
     //we need to check if the user with this email and mobile number already exists or not
@@ -32,6 +33,10 @@ const {findUser, createUser} = require('../Repositories/userRepositories')
     if(!newUser){
         throw { message : "Something went wrong, Unable to create user", statusCode: 500}
     }
+
+    console.log(newUser._id);
+    // will create a cart 
+    await createCart(newUser._id);
 
     //return the details of new user
     return newUser;

@@ -1,9 +1,6 @@
 const user = require('../Schema/userSchema');
 
-
-    
- 
-    async function authFindUser(parameters){
+async function authFindUser(parameters){
         try {
             const response = user.findOne({...parameters});
             return response;

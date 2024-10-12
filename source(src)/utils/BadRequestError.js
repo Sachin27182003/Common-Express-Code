@@ -11,4 +11,6 @@ class BadRequestError extends AppError{
 }
                    
 
-module.exports = BadRequestError;   
+module.exports = {
+    BadRequestError
+}   

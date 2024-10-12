@@ -1,9 +1,11 @@
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config/serverConfig');
+const UnauthorizedError = require('../utils/unAuthorisedError');
 
 async function isLoggedIn(req, res, next){
 
     const token = req.cookies['authToken'];
+
     if(!token){
         return res.status(401).json({
             success: false,
@@ -13,24 +15,52 @@ async function isLoggedIn(req, res, next){
         });
     }
 
-    const decoded = jwt.verify(token, JWT_SECRET);
+    try {
+        const decoded = await jwt.verify(token, JWT_SECRET);
 
-    if(!decoded){
+        if(!decoded){
+           throw new UnauthorizedError();
+        }
+    
+        req.user = {
+            email: decoded.email,
+            id: decoded.id,
+            role : decoded.role
+        }
+    
+        next();
+
+    } catch (error) {
         return res.status(401).json({
             success: false,
             data: {},
-            error: "Not authenticated",
+            error: error,
             message: "Invalid token provided"
         });
     }
-
-    req.user = {
-        email: decoded.email,
-        id: decoded.id
-    }
-
-    next();
-
+    
 }
 
-module.exports = isLoggedIn;
+async function isAdmin(req, res, next){
+
+    const loggedInUser = req.user;
+
+    if(loggedInUser.role === 'ADMIN'){
+        next();
+    } else {
+        return res.status(401).json({
+            success: false,
+            data: {},
+            message: "You are not an Admin",
+            error:{
+                statusCode: 401,
+                reason: "Unauthorized for this action" 
+            }
+        })
+    }
+}
+
+module.exports = {
+    isLoggedIn,
+    isAdmin
+}

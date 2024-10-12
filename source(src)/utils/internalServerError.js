@@ -10,4 +10,6 @@ class InternalServerError extends AppError{
 }
                    
 
-module.exports = InternalServerError;
+module.exports = {
+    InternalServerError
+}

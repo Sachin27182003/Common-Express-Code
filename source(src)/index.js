@@ -11,7 +11,7 @@ const serverConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
 // const userRouter = require('./Routes/userRoute');
 const { cartRouter, userRouter, authRouter, productRouter, getProductRouter, deleteProductRouter } = require('./Routes/Router');
-const isLoggedIn = require('./Validation/authValidator');
+const {isLoggedIn} = require('./Validation/authValidator');
 
 // const user = require('./Schema/userSchema');
 
