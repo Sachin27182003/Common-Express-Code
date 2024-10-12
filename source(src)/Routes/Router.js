@@ -1,5 +1,5 @@
 const express = require('express');
-const { getCartById,  modifyProductToCart } = require('../Controllers/cartController');
+const { getCartById,  modifyProductToCart, clearCart } = require('../Controllers/cartController');
 const { createUser } = require('../Controllers/userController');
 const {login} = require('../Controllers/authController');
 const { createProduct, getProduct, deleteProduct } = require('../Controllers/productController');
@@ -19,6 +19,7 @@ const deleteProductRouter = express.Router();
 // Routers are used for segregating your routes in different modules
 cartRouter.get('/', isLoggedIn ,getCartById);
 cartRouter.post('/:operation/:productId', isLoggedIn , modifyProductToCart);
+cartRouter.delete('/clear/', isLoggedIn ,clearCart);
 userRouter.post('/', createUser);
 authRouter.post('/', login);
 productRouter.post('/products',isLoggedIn, isAdmin, uploader.single('files'), createProduct);

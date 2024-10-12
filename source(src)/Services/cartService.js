@@ -23,8 +23,7 @@ async function modifyCart(userId, shouldAdd = true, productId){
 
     console.log("cart service");
 
-    //const quantityValue = (shouldAdd == true) ? 1 : -1;
-    const cart = await getcart(userId);
+    let cart = await getcart(userId);
     const product = await getProductById(productId);
 
     if(!product){
@@ -76,11 +75,25 @@ async function modifyCart(userId, shouldAdd = true, productId){
 
     await cart.save();
 
+    cart = await getcart(userId);
+
+    return cart;
+}
+
+async function clearWholeCart(userId){
+
+    const cart = await getcart(userId);
+
+
+    cart.items.splice(0, cart.items.length);
+
+    await cart.save();
 
     return cart;
 }
 
 module.exports = {
     getcart,
-    modifyCart
+    modifyCart,
+    clearWholeCart
 }
